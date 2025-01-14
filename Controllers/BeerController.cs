@@ -45,10 +45,10 @@ namespace BackendLearnUdemy.Controllers
             //Format validation can be in the controller
             var validationResult = await _beerInsertValidator.ValidateAsync(beerInsertDTO);
 
-            if(!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
+            if(!validationResult.IsValid)   return BadRequest(validationResult.Errors);
+            
+            if (!_beerService.Validate(beerInsertDTO)) return BadRequest(_beerService.errors);
+            
             
             var beerDTO= await _beerService.Add(beerInsertDTO);
 
@@ -65,7 +65,9 @@ namespace BackendLearnUdemy.Controllers
             var validationResult = await _beerUpdateValidator.ValidateAsync(beerUpdateDTO);
 
             if (!validationResult.IsValid) return BadRequest(validationResult.Errors);
+            if (!_beerService.Validate(beerUpdateDTO))  return BadRequest(_beerService.errors);
             
+
             BeerDTO beerDTO= await _beerService.Update(id, beerUpdateDTO);
 
             if (beerDTO is null) return NotFound();

@@ -1,4 +1,5 @@
-﻿namespace BackendLearnUdemy.Repository
+﻿
+namespace BackendLearnUdemy.Repository
 {
     public interface IRepository<TEntity>
     {
@@ -8,6 +9,7 @@
         void Update(TEntity entity);
         void Delete(TEntity entity);
         Task Save();
+        IEnumerable<TEntity> Search(Func<TEntity, bool> searchFunc);
 
     }
 }

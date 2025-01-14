@@ -40,13 +40,13 @@ namespace BackendLearnUdemy.Repository
             _storeContext.Beers.Remove(entity);
         }
 
-      
-
         public async Task Save()
         {
             //Represent stored changes in the DB, This step will add the id (Beer ID)
             await _storeContext.SaveChangesAsync();
         }
+
+        public IEnumerable<Beer> Search(Func<Beer,bool> filter)=> _storeContext.Beers.Where(filter).ToList();
 
      
     }

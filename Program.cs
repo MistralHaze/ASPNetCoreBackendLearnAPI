@@ -1,3 +1,4 @@
+using BackendLearnUdemy.Automappers;
 using BackendLearnUdemy.DataTransferObjects;
 using BackendLearnUdemy.Models;
 using BackendLearnUdemy.Repository;
@@ -34,6 +35,9 @@ builder.Services.AddDbContext<StoreContext>(options =>
 //Validators (Fluent Validation Package)
 builder.Services.AddScoped<IValidator<BeerInsertDTO>, BeerInsertValidator>();
 builder.Services.AddScoped<IValidator<BeerUpdateDTO>, BeerUpdateValidator>();
+
+//Mappers
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
 builder.Services.AddControllers();
