@@ -1,5 +1,6 @@
 using BackendLearnUdemy.DataTransferObjects;
 using BackendLearnUdemy.Models;
+using BackendLearnUdemy.Repository;
 using BackendLearnUdemy.Services;
 using BackendLearnUdemy.Services.BeerStore;
 using BackendLearnUdemy.Validators;
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//Also can be Scoped or transient
+//Also can be Scoped(one different for client connection) or transient(one different for each time code is executed)
 builder.Services.AddKeyedSingleton<IPeopleService, PeopleServiceBackup>("backup");
 builder.Services.AddKeyedSingleton<IPeopleService, PeopleService>("people");
 builder.Services.AddKeyedScoped<ICommonService<BeerDTO, BeerInsertDTO, BeerUpdateDTO>, BeerService>("beerService");
@@ -22,6 +23,7 @@ builder.Services.AddHttpClient<IPostsService, PostsService>(c =>
 {
     c.BaseAddress = new Uri(builder.Configuration["BaseUrlPost"]);
 });
+builder.Services.AddScoped<IRepository<Beer>, BeerRepository>();
 
 //Entity Framework DbContext Config
 builder.Services.AddDbContext<StoreContext>(options =>

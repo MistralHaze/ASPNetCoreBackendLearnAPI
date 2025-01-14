@@ -14,8 +14,7 @@ namespace BackendLearnUdemy.Controllers
         private IValidator<BeerUpdateDTO> _beerUpdateValidator;
 
         private ICommonService<BeerDTO, BeerInsertDTO,BeerUpdateDTO> _beerService;
-        public BeerController(StoreContext storeContext, 
-                              IValidator<BeerInsertDTO> beerInsertValidator,
+        public BeerController(IValidator<BeerInsertDTO> beerInsertValidator,
                               IValidator<BeerUpdateDTO> beerUpdateValidator,
                               [FromKeyedServices("beerService")]ICommonService<BeerDTO, BeerInsertDTO, BeerUpdateDTO> beerService)
         {
